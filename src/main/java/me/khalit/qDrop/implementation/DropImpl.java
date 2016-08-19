@@ -1,7 +1,7 @@
 package me.khalit.qDrop.implementation;
 
 import me.khalit.qDrop.implementation.interfaces.Drop;
-import me.khalit.qDrop.implementation.interfaces.FortuneIdentifier;
+import me.khalit.qDrop.utils.keys.KeyPair;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
@@ -16,15 +16,15 @@ public class DropImpl implements Drop {
 
     private final String name;
     private ItemStack item;
-    private float chance;
+    private double chance;
     private List<Material> tools;
     private int experience;
-    private HashMap<Integer, Integer> amounts;
-    private HashMap<Float, Float> heights;
+    private KeyPair<Integer, Integer> amounts;
+    private KeyPair<Double, Double> heights;
     private Material block;
     private List<Biome> biomes;
     private String message;
-    private FortuneIdentifier fortune;
+    private HashMap<Integer, Integer> fortune;
     private int levelPoints;
     private int levelRequirement;
 
@@ -48,7 +48,7 @@ public class DropImpl implements Drop {
     }
 
     @Override
-    public float getChance() {
+    public double getChance() {
         return chance;
     }
 
@@ -63,12 +63,12 @@ public class DropImpl implements Drop {
     }
 
     @Override
-    public HashMap<Integer, Integer> getAmounts() {
+    public KeyPair<Integer, Integer> getAmounts() {
         return amounts;
     }
 
     @Override
-    public HashMap<Float, Float> getHeights() {
+    public KeyPair<Double, Double> getHeights() {
         return heights;
     }
 
@@ -88,7 +88,7 @@ public class DropImpl implements Drop {
     }
 
     @Override
-    public FortuneIdentifier getFortunes() {
+    public HashMap<Integer, Integer> getFortunes() {
         return fortune;
     }
 
@@ -108,7 +108,7 @@ public class DropImpl implements Drop {
     }
 
     @Override
-    public void setChance(float chance) {
+    public void setChance(double chance) {
         this.chance = chance;
     }
 
@@ -123,12 +123,12 @@ public class DropImpl implements Drop {
     }
 
     @Override
-    public void setAmounts(HashMap<Integer, Integer> amounts) {
+    public void setAmounts(KeyPair<Integer, Integer> amounts) {
         this.amounts = amounts;
     }
 
     @Override
-    public void setHeights(HashMap<Float, Float> heights) {
+    public void setHeights(KeyPair<Double, Double> heights) {
         this.heights = heights;
     }
 
@@ -148,7 +148,7 @@ public class DropImpl implements Drop {
     }
 
     @Override
-    public void setFortunes(FortuneIdentifier fortune) {
+    public void setFortunes(HashMap<Integer, Integer> fortune) {
         this.fortune = fortune;
     }
 

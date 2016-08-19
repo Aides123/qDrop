@@ -1,5 +1,6 @@
 package me.khalit.qDrop.implementation.interfaces;
 
+import me.khalit.qDrop.utils.keys.KeyPair;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.inventory.ItemStack;
@@ -14,15 +15,15 @@ public interface Drop {
 
     String getName();
     ItemStack getItem();
-    float getChance();
+    double getChance();
     List<Material> getTools();
     int getExperience();
-    HashMap<Integer, Integer> getAmounts();
-    HashMap<Float, Float> getHeights();
+    KeyPair<Integer, Integer> getAmounts();
+    KeyPair<Double, Double> getHeights();
     Material getBlock();
     List<Biome> getBiomes();
     String getMessage();
-    FortuneIdentifier getFortunes();
+    HashMap<Integer, Integer> getFortunes();
 
     // leveling
     int getLevelPoints();
@@ -30,15 +31,15 @@ public interface Drop {
 
     // setters
     void setItem(ItemStack item);
-    void setChance(float chance);
+    void setChance(double chance);
     void setTools(List<Material> tools);
     void setExperience(int experience);
-    void setAmounts(HashMap<Integer, Integer> amounts);
-    void setHeights(HashMap<Float, Float> heights);
+    void setAmounts(KeyPair<Integer, Integer> amounts);
+    void setHeights(KeyPair<Double, Double> heights);
     void setBlock(Material block);
     void setBiomes(List<Biome> biomes);
     void setMessage(String message);
-    void setFortunes(FortuneIdentifier fortune);
+    void setFortunes(HashMap<Integer, Integer>fortune);
 
     // leveling
     void setLevelPoints(int levelPoints);

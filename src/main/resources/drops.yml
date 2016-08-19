@@ -1,0 +1,26 @@
+drops:
+  diamond:
+    item: 'diamond:0 * * infinity:10'
+    chance: 50.5
+    tools:
+      - IRON_PICKAXE
+      - DIAMOND_PICKAXE
+      - GOLD_PICKAXE
+    experience: 2
+    amounts:
+      start: 1
+      end: 3
+    heights:
+      start: 15
+      end: 70
+    block: STONE
+    biomes: []
+    message: 'test'
+    fortunes:
+      - '1:2'
+      - '2:3'
+      - '3:4'
+      - '10:15'
+    level:
+      points: 10
+      requirement: 0
