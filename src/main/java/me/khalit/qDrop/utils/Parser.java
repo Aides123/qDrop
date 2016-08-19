@@ -7,6 +7,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,15 +17,27 @@ public class Parser {
 
     private Parser() { }
 
+    public static HashMap<Integer, Integer> getParsedFortunes(List<String> values) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (String val : values) {
+            String[] split = val.split(":");
+            int key = Integer.valueOf(split[0]);
+            int value = Integer.valueOf(split[1]);
+
+            map.put(key, value);
+        }
+        return map;
+    }
+
     public static ItemStack getParsedItem(String syntax) {
         String[] args = syntax.split(" ");
-        ItemStack itemstack = getParsedItem(args[0], Integer.valueOf(args[1]));
+        ItemStack itemstack = getParsedItem(args[0]);
         ItemMeta itemmeta = itemstack.getItemMeta();
-        if ((args.length >= 3) && (!args[2].equalsIgnoreCase("*"))) {
+        if ((args.length >= 2) && (!args[1].equalsIgnoreCase("*"))) {
             itemmeta.setDisplayName(Util.fixColors(args[2].replace("_", " ")));
         }
-        if ((args.length >= 4) && (!args[3].equalsIgnoreCase("*"))) {
-            String[] loreLines = args[3].split(";");
+        if ((args.length >= 3) && (!args[2].equalsIgnoreCase("*"))) {
+            String[] loreLines = args[2].split(";");
             List<String> lore = Lists.newArrayList();
             for (String s : loreLines) {
                 lore.add(s.replace("_", " "));
@@ -32,8 +45,8 @@ public class Parser {
             itemmeta.setLore(Util.fixColoredList(lore));
         }
         itemstack.setItemMeta(itemmeta);
-        if ((args.length >= 5) && (!args[4].equalsIgnoreCase("*"))) {
-            String[] enchantments = args[4].split(";");
+        if ((args.length >= 4) && (!args[3].equalsIgnoreCase("*"))) {
+            String[] enchantments = args[3].split(";");
             for (String s : enchantments) {
                 addEnchant(s, itemstack);
             }
@@ -50,7 +63,7 @@ public class Parser {
     }
 
     @SuppressWarnings("deprecation")
-    public static ItemStack getParsedItem(String item, int amount) {
+    public static ItemStack getParsedItemData(String item) {
         ItemStack itemR = null;
         try {
             short data;
@@ -68,8 +81,8 @@ public class Parser {
 
             if (StringUtils.isNumeric(namer)) {
                 int id = namer.length() < 5 && namer.length() > 0 ? Integer.parseInt(namer) : 0;
-                itemR = new ItemStack(Material.getMaterial(id), amount, data);
-            } else itemR = new ItemStack(Material.matchMaterial(namer.toUpperCase()), amount, data);
+                itemR = new ItemStack(Material.getMaterial(id), 1, data);
+            } else itemR = new ItemStack(Material.matchMaterial(namer.toUpperCase()), 1, data);
 
         } catch (Exception e) {
             return null;
