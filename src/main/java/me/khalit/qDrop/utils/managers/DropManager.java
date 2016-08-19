@@ -38,26 +38,26 @@ public class DropManager {
 
         for (Drop d : DropAssembly.getDrops()) {
             if (d.isDisabled(u)) {
-                break;
+                continue;
             }
             if (!b.getType().equals(d.getBlock())) {
-                break;
+                continue;
             }
             if (!Util.getChance(d.getChance() / 100)) {
-                break;
+                continue;
             }
             if (d.getLevelRequirement() > u.getLevel()) {
-                break;
+                continue;
             }
             if (!d.getTools().contains(tool.getType())) {
-                break;
+                continue;
             }
             if (!d.getBiomes().contains(b.getBiome())) {
-                break;
+                continue;
             }
             int y = b.getLocation().getBlockY();
             if (y <= d.getHeights().getKey() && y >= d.getHeights().getValue()) {
-                break;
+                continue;
             }
             int amountRaw = Util.randomInt(d.getAmounts().getKey(), d.getAmounts().getValue());
             int amount = calculateFortune(d, amountRaw, tool);
