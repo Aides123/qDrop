@@ -37,7 +37,7 @@ public class DropManager {
             if (k == fortuneLevel) {
                 int key = k;
                 int value = fortunes.get(k);
-                modifiedAmount += value;
+                modifiedAmount *= value;
             }
         }
         return modifiedAmount;

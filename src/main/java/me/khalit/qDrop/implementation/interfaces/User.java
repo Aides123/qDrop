@@ -21,4 +21,6 @@ public interface User {
     void setDropMultipiler(float dropMultipiler);
     void setLevelPoints(int levelPoints);
 
+    void update();
+    void insert();
 }

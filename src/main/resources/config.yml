@@ -1,0 +1,7 @@
+sqlite: true
+mysql:
+  port: 3306
+  host: localhost
+  pass: ''
+  user: root
+  name: qDrop

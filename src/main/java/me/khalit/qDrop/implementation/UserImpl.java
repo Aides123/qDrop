@@ -1,8 +1,10 @@
 package me.khalit.qDrop.implementation;
 
+import me.khalit.qDrop.Main;
 import me.khalit.qDrop.implementation.interfaces.User;
 import org.bukkit.entity.Player;
 
+import java.sql.PreparedStatement;
 import java.util.UUID;
 
 /**
@@ -16,7 +18,7 @@ public class UserImpl implements User {
     private float dropMultipiler;
     private int levelPoints;
 
-    public UserImpl(UUID uuid, String name) {
+    public UserImpl(String name, UUID uuid) {
         this.uuid = uuid;
         this.name = name;
     }
@@ -64,5 +66,40 @@ public class UserImpl implements User {
     @Override
     public void setLevelPoints(int levelPoints) {
         this.levelPoints = levelPoints;
+    }
+
+    @Override
+    public void update() {
+        try {
+            try (PreparedStatement stat = Main.getSQL().getConnection().prepareStatement(
+                    "UPDATE `users` SET `levelPoints`=?,`level`=?,`dropMultipiler`=? WHERE `uuid`=? AND `name`=?")) {
+                stat.setInt(1, levelPoints);
+                stat.setInt(2, level);
+                stat.setFloat(3, dropMultipiler);
+                stat.setString(4, uuid.toString());
+                stat.setString(5, name);
+                Main.getSQL().executeUpdate(stat);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void insert() {
+        try {
+            try (PreparedStatement stat = Main.getSQL().getConnection().prepareStatement(
+                    "INSERT INTO `users` (`uuid`, `name`, `levelPoints`, `level`, `dropMultipiler`) VALUES (?, ?, ?, ?, ?)")) {
+                stat.setString(1, uuid.toString());
+                stat.setString(2, name);
+                stat.setInt(3, 0);
+                stat.setInt(4, 0);
+                stat.setFloat(5, 1.0f);
+                stat.execute();
+                stat.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
