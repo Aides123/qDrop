@@ -43,7 +43,7 @@ public class DropManager {
             if (!b.getType().equals(d.getBlock())) {
                 break;
             }
-            if (!Util.getChance(d.getChance())) {
+            if (!Util.getChance(d.getChance() / 100)) {
                 break;
             }
             if (d.getLevelRequirement() > u.getLevel()) {
