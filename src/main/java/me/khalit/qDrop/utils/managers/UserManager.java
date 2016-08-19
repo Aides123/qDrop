@@ -31,6 +31,7 @@ public class UserManager {
 
             ResultSet rs = Main.getSQL().executeSelect(stat);
             while (rs.next()) {
+                user.setDisabledDrops(new ArrayList<>());
                 user.setLevelPoints(rs.getInt("levelPoints"));
                 user.setLevel(rs.getInt("level"));
                 user.setDropMultipiler(rs.getFloat("dropMultipiler"));

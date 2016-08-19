@@ -1,6 +1,7 @@
 package me.khalit.qDrop;
 
 import me.khalit.qDrop.configuration.Configuration;
+import me.khalit.qDrop.configuration.ConfigurationSectionReader;
 import me.khalit.qDrop.databases.MySQL;
 import me.khalit.qDrop.databases.SQLite;
 import me.khalit.qDrop.implementation.interfaces.Database;
@@ -76,6 +77,10 @@ public class Main extends JavaPlugin {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new BlockBreakListener(), this);
+        LOG.info(PREFIX + "Loading drops...");
+        ConfigurationSectionReader reader = new ConfigurationSectionReader("drops");
+        int amount = reader.loadToAssembly();
+        LOG.info(PREFIX + "Loaded " + amount + " drop(s)!");
     }
 
 }

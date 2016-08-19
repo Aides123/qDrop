@@ -1,6 +1,7 @@
 package me.khalit.qDrop.implementation;
 
 import me.khalit.qDrop.implementation.interfaces.Drop;
+import me.khalit.qDrop.implementation.interfaces.User;
 import me.khalit.qDrop.utils.keys.KeyPair;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
@@ -160,5 +161,16 @@ public class DropImpl implements Drop {
     @Override
     public void setLevelRequirement(int levelRequirement) {
         this.levelRequirement = levelRequirement;
+    }
+
+    @Override
+    public boolean isDisabled(User user) {
+        if (user.getDisabledDrops() == null) {
+            return false;
+        }
+        for (Drop d : user.getDisabledDrops()) {
+            if (this.equals(d)) return true;
+        }
+        return false;
     }
 }

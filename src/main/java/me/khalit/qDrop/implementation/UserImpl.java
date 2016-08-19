@@ -1,10 +1,12 @@
 package me.khalit.qDrop.implementation;
 
 import me.khalit.qDrop.Main;
+import me.khalit.qDrop.implementation.interfaces.Drop;
 import me.khalit.qDrop.implementation.interfaces.User;
 import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -17,6 +19,7 @@ public class UserImpl implements User {
     private int level;
     private float dropMultipiler;
     private int levelPoints;
+    private List<Drop> disabledDrops;
 
     public UserImpl(String name, UUID uuid) {
         this.uuid = uuid;
@@ -54,6 +57,11 @@ public class UserImpl implements User {
     }
 
     @Override
+    public List<Drop> getDisabledDrops() {
+        return disabledDrops;
+    }
+
+    @Override
     public void setLevel(int level) {
         this.level = level;
     }
@@ -66,6 +74,21 @@ public class UserImpl implements User {
     @Override
     public void setLevelPoints(int levelPoints) {
         this.levelPoints = levelPoints;
+    }
+
+    @Override
+    public void setDisabledDrops(List<Drop> drops) {
+        this.disabledDrops = drops;
+    }
+
+    @Override
+    public void addDisabledDrop(Drop drop) {
+        this.disabledDrops.add(drop);
+    }
+
+    @Override
+    public void removeDisabledDrop(Drop drop) {
+        this.disabledDrops.remove(drop);
     }
 
     @Override

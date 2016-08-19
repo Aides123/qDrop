@@ -26,7 +26,7 @@ public class ConfigurationSectionReader {
 
     public ConfigurationSectionReader(String section) {
         this.configurationSection =
-                Main.getInstance().getConfig().getConfigurationSection(section);
+                Main.getDrops().getFileConfiguration().getConfigurationSection(section);
     }
 
     public Drop toObject(ConfigurationSection section) {

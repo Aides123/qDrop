@@ -17,6 +17,18 @@ public class Parser {
 
     private Parser() { }
 
+    public static HashMap<Material, Integer> getParsedLevelBlocks(List<String> values) {
+        HashMap<Material, Integer> map = new HashMap<>();
+        for (String val : values) {
+            String[] split = val.split(":");
+            Material key = Material.matchMaterial(split[0]);
+            int value = Integer.valueOf(split[1]);
+
+            map.put(key, value);
+        }
+        return map;
+    }
+
     public static HashMap<Integer, Integer> getParsedFortunes(List<String> values) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (String val : values) {
@@ -31,7 +43,7 @@ public class Parser {
 
     public static ItemStack getParsedItem(String syntax) {
         String[] args = syntax.split(" ");
-        ItemStack itemstack = getParsedItem(args[0]);
+        ItemStack itemstack = getParsedItemData(args[0]);
         ItemMeta itemmeta = itemstack.getItemMeta();
         if ((args.length >= 2) && (!args[1].equalsIgnoreCase("*"))) {
             itemmeta.setDisplayName(Util.fixColors(args[2].replace("_", " ")));

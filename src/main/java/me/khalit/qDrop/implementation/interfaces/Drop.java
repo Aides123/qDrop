@@ -3,6 +3,7 @@ package me.khalit.qDrop.implementation.interfaces;
 import me.khalit.qDrop.utils.keys.KeyPair;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -44,5 +45,7 @@ public interface Drop {
     // leveling
     void setLevelPoints(int levelPoints);
     void setLevelRequirement(int levelRequirement);
+
+    boolean isDisabled(User player);
 
 }

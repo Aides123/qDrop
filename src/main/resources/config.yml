@@ -1,3 +1,20 @@
+# qDrop configuration
+#     Have fun!
+blocks-dig-prevent-message: '&cThere is no drop from this block!'
+blocks-dig-prevent:
+  - IRON_ORE
+  - DIAMOND_ORE
+  - COAL_ORE
+  - LAPIS_ORE
+  - GOLD_ORE
+  - EMERALD_ORE
+blocks-level-points:
+  - 'STONE:1'
+  - 'DIRT:1'
+  - 'GRAVEL:1'
+  - 'COBBLESTONE:2'
+  - 'GRASS:3'
+  - 'OBSIDIAN:5'
 sqlite: true
 mysql:
   port: 3306
