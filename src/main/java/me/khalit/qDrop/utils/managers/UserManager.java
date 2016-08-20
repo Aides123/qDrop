@@ -29,7 +29,7 @@ public class UserManager {
                     "SELECT * FROM users WHERE uuid=?");
             stat.setString(1, user.getUUID().toString());
 
-            ResultSet rs = Main.getSQL().executeSelect(stat);
+            ResultSet rs = stat.executeQuery();
             while (rs.next()) {
                 user.setDisabledDrops(new ArrayList<>());
                 user.setLevelPoints(rs.getInt("levelPoints"));
@@ -39,6 +39,7 @@ public class UserManager {
             if (!getUsers().contains(user)) {
                 getUsers().add(user);
             }
+            stat.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

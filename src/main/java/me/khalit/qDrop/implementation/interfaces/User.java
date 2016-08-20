@@ -30,4 +30,6 @@ public interface User {
 
     void update();
     void insert();
+
+    boolean hasPlayedBefore();
 }

@@ -5,8 +5,9 @@ import me.khalit.qDrop.configuration.ConfigurationSectionReader;
 import me.khalit.qDrop.databases.MySQL;
 import me.khalit.qDrop.databases.SQLite;
 import me.khalit.qDrop.implementation.interfaces.Database;
-import me.khalit.qDrop.listeners.BlockBreakListener;
-import me.khalit.qDrop.listeners.PlayerJoinListener;
+import me.khalit.qDrop.implementation.interfaces.User;
+import me.khalit.qDrop.listeners.*;
+import me.khalit.qDrop.listeners.async.AsyncPlayerChatListener;
 import me.khalit.qDrop.utils.managers.UserManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -75,12 +76,23 @@ public class Main extends JavaPlugin {
         }
         LOG.info(PREFIX + "Registering listeners...");
         PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new AsyncPlayerChatListener(), this);
+
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new BlockBreakListener(), this);
+        pm.registerEvents(new EntityExplodeListener(), this);
+        pm.registerEvents(new LevelChangeListener(), this);
+        pm.registerEvents(new LevelPointChangeListener(), this);
         LOG.info(PREFIX + "Loading drops...");
         ConfigurationSectionReader reader = new ConfigurationSectionReader("drops");
         int amount = reader.loadToAssembly();
         LOG.info(PREFIX + "Loaded " + amount + " drop(s)!");
+    }
+
+    public void onDisable() {
+        for (User u : UserManager.getUsers()) {
+            u.update();
+        }
     }
 
 }

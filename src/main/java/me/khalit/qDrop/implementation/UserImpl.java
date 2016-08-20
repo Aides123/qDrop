@@ -1,11 +1,15 @@
 package me.khalit.qDrop.implementation;
 
 import me.khalit.qDrop.Main;
+import me.khalit.qDrop.events.LevelChangeEvent;
+import me.khalit.qDrop.events.LevelPointChangeEvent;
 import me.khalit.qDrop.implementation.interfaces.Drop;
 import me.khalit.qDrop.implementation.interfaces.User;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,11 +28,17 @@ public class UserImpl implements User {
     public UserImpl(String name, UUID uuid) {
         this.uuid = uuid;
         this.name = name;
+        this.level = 0;
+        this.levelPoints = 0;
+        this.dropMultipiler = 1.0f;
     }
 
     public UserImpl(Player player) {
         this.uuid = player.getUniqueId();
         this.name = player.getName();
+        this.level = 0;
+        this.levelPoints = 0;
+        this.dropMultipiler = 1.0f;
     }
 
     @Override
@@ -64,6 +74,7 @@ public class UserImpl implements User {
     @Override
     public void setLevel(int level) {
         this.level = level;
+        Bukkit.getPluginManager().callEvent(new LevelChangeEvent(this.level, levelPoints, this));
     }
 
     @Override
@@ -74,6 +85,7 @@ public class UserImpl implements User {
     @Override
     public void setLevelPoints(int levelPoints) {
         this.levelPoints = levelPoints;
+        Bukkit.getPluginManager().callEvent(new LevelPointChangeEvent(level, this.levelPoints, this));
     }
 
     @Override
@@ -101,7 +113,8 @@ public class UserImpl implements User {
                 stat.setFloat(3, dropMultipiler);
                 stat.setString(4, uuid.toString());
                 stat.setString(5, name);
-                Main.getSQL().executeUpdate(stat);
+                stat.execute();
+                stat.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,5 +137,24 @@ public class UserImpl implements User {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean hasPlayedBefore() {
+        try {
+            PreparedStatement stat = Main.getSQL().getConnection().prepareStatement(
+                    "SELECT uuid FROM users WHERE uuid=?");
+            stat.setString(1, uuid.toString());
+            ResultSet rs = stat.executeQuery();
+
+            if (rs.getString("uuid") == null) {
+                return false;
+            }
+
+            stat.close();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 package me.khalit.qDrop.listeners;
 
+import me.khalit.qDrop.implementation.UserImpl;
 import me.khalit.qDrop.implementation.interfaces.User;
 import me.khalit.qDrop.utils.managers.UserManager;
 import org.bukkit.entity.Player;
@@ -17,10 +18,12 @@ public class PlayerJoinListener implements Listener {
         Player p = e.getPlayer();
         User user = UserManager.getUserPossibleNull(p);
         if (user == null) {
+            user = UserManager.getUser(p);
+
+            if (!user.hasPlayedBefore())
+                user.insert();
+
             user = UserManager.loadUser(p);
-            user.insert();
         }
-
-
     }
 }

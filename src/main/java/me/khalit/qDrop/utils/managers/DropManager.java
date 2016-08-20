@@ -56,11 +56,13 @@ public class DropManager {
                 continue;
             }
             int y = b.getLocation().getBlockY();
-            if (y <= d.getHeights().getKey() && y >= d.getHeights().getValue()) {
+            if ((y <= d.getHeights().getKey()) || (y >= d.getHeights().getValue())) {
                 continue;
             }
-            int amountRaw = Util.randomInt(d.getAmounts().getKey(), d.getAmounts().getValue());
-            int amount = calculateFortune(d, amountRaw, tool);
+            int amountRawRaw = Util.randomInt(d.getAmounts().getKey(), d.getAmounts().getValue());
+            int amountRaw = calculateFortune(d, amountRawRaw, tool);
+
+            int amount = (int)Math.round(amountRaw * u.getDropMultipiler());
 
             p.giveExp(d.getExperience());
             u.setLevelPoints(u.getLevelPoints() + d.getLevelPoints());
@@ -70,7 +72,7 @@ public class DropManager {
             toDrop.add(toAdd);
 
             if (!d.getMessage().equals("")) {
-                Util.sendMessage(p, d.getMessage().replace("%amount", String.valueOf(amount)));
+                Util.sendMessage(p, d.getMessage().replace("{AMOUNT}", String.valueOf(amount)));
             }
         }
 
@@ -93,7 +95,7 @@ public class DropManager {
     }
 
     public static List<ItemStack> getDropableItems(Block b, ItemStack tool) {
-        List<ItemStack> items = new ArrayList<ItemStack>();
+        List<ItemStack> items = new ArrayList<>();
 
         short data = b.getData();
         Material type = b.getType();
@@ -150,6 +152,7 @@ public class DropManager {
             case CHORUS_PLANT: {
                 amount = 1;
                 items.add(new ItemStack(Material.CHORUS_FRUIT));
+                break;
             }
             case NETHER_WARTS: {
                 NetherWarts warts = (NetherWarts)b.getState().getData();
