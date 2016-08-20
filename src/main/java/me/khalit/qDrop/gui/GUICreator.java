@@ -1,10 +1,12 @@
 package me.khalit.qDrop.gui;
 
 import me.khalit.qDrop.Main;
+import me.khalit.qDrop.implementation.TurboDropImpl;
 import me.khalit.qDrop.implementation.interfaces.Drop;
 import me.khalit.qDrop.implementation.interfaces.User;
 import me.khalit.qDrop.utils.Util;
 import me.khalit.qDrop.utils.managers.DropManager;
+import me.khalit.qDrop.utils.managers.TurboDropManager;
 import me.khalit.qDrop.utils.managers.UserManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -74,13 +76,17 @@ public class GUICreator {
             case DROP: {
                 List<String> loresRaw = Main.getInstance().getConfig().getStringList("gui.drop.lores");
                 List<String> lores = new ArrayList<>();
+                double chance = d.getChance();
+                if ((TurboDropManager.getCurrentTurboDrop() != null) && (TurboDropManager.getCurrentTurboDrop().isEnabled())) {
+                    chance = d.getChance() + Main.getInstance().getConfig().getDouble("turbo-chance-increase");
+                }
                 for (String s : loresRaw) {
                     lores.add(s
                             .replace("&activecolor", DropManager.getColor(!itemDisabled))
                             .replace("&lvlcolor", DropManager.getColor(DropManager.canDrop(d, u)))
                             .replace("{REQUIREDLEVEL}", String.valueOf(d.getLevelRequirement()))
                             .replace("{ITEM}", d.getItem().getType().toString().toLowerCase().replace("_", " "))
-                            .replace("{CHANCE}", String.valueOf(d.getChance()))
+                            .replace("{CHANCE}", String.valueOf(chance) + " &l(TurboDrop)")
                             .replace("{AMOUNT-START}", String.valueOf(d.getAmounts().getKey()))
                             .replace("{AMOUNT-END}", String.valueOf(d.getAmounts().getValue()))
                             .replace("{HEIGHTS-START}", String.valueOf(d.getHeights().getKey()))

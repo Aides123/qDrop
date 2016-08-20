@@ -2,6 +2,7 @@ package me.khalit.qDrop;
 
 import me.khalit.qDrop.commands.DropCommand;
 import me.khalit.qDrop.commands.LevelCommand;
+import me.khalit.qDrop.commands.TurboDropCommand;
 import me.khalit.qDrop.configuration.Configuration;
 import me.khalit.qDrop.configuration.ConfigurationSectionReader;
 import me.khalit.qDrop.databases.MySQL;
@@ -89,6 +90,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new LevelPointChangeListener(), this);
         pm.registerEvents(new InventoryClickListener(), this);
         LOG.info(PREFIX + "Registering commands...");
+        getCommand("turbodrop").setExecutor(new TurboDropCommand());
         getCommand("drop").setExecutor(new DropCommand());
         getCommand("level").setExecutor(new LevelCommand());
         LOG.info(PREFIX + "Loading drops...");

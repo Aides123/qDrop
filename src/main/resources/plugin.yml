@@ -6,3 +6,5 @@ commands:
     aliases: [kamien, surowce]
   level:
     aliases: [poziom, lvl, xp, exp]
+  turbodrop:
+    aliases: [turbo, td]

@@ -1,5 +1,7 @@
 package me.khalit.qDrop.utils.managers;
 
+import me.khalit.qDrop.Main;
+import me.khalit.qDrop.implementation.TurboDropImpl;
 import me.khalit.qDrop.implementation.interfaces.Drop;
 import me.khalit.qDrop.implementation.interfaces.User;
 import me.khalit.qDrop.utils.Util;
@@ -57,7 +59,11 @@ public class DropManager {
             if (!b.getType().equals(d.getBlock())) {
                 continue;
             }
-            if (!Util.getChance(d.getChance() / 100)) {
+            double chance = d.getChance();
+            if ((TurboDropManager.getCurrentTurboDrop() != null) && (TurboDropManager.getCurrentTurboDrop().isEnabled())) {
+                chance = d.getChance() + Main.getInstance().getConfig().getDouble("turbo-chance-increase");
+            }
+            if (!Util.getChance(chance / 100)) {
                 continue;
             }
             if (d.getLevelRequirement() > u.getLevel()) {

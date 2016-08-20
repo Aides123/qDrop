@@ -16,6 +16,21 @@ blocks-level-points:
   - 'COBBLESTONE:2'
   - 'GRASS:3'
   - 'OBSIDIAN:5'
+turbo-chance-increase: 10.0
+turbo-bar-color: 'GREEN'
+turbo-bar-message: '&2&lTurboDrop: &2{WHO}'
+turbo-enabled:
+  - '&8&l&m-----------------------------------'
+  - '&7   TurboDrop from &2{WHO}'
+  - '&7     Time remaining: &2{TIME}'
+  - '&7     Additional: &2{CHANCE}%'
+  - '&8&l&m-----------------------------------'
+turbo-disabled:
+  - '&8&l&m-----------------------------------'
+  - '&7   TurboDrop is disabled.'
+  - '&7     Buy: &2http://yourstore.com'
+  - '&7     Additional: &2{CHANCE}%'
+  - '&8&l&m-----------------------------------'
 # Example: currentLevel * thisMultipiler
 # So if currentLevel = 5, and thisMultipiler = 45.5
 # 6 level will be on: 227(.5, but we're rounding to int)
