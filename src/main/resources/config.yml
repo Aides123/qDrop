@@ -39,6 +39,31 @@ levels-broadcast:
   - '7500'
   - '10000'
 levels-broadcast-message: '&7Player &c{PLAYER} &7has now level &c{LEVEL}&7!'
+gui:
+  drop:
+    title: '&7Drop list'
+    item-color: '&2'
+    lores:
+      - '&8* &lvlcolorRequired level: &lvlcolor{REQUIREDLEVEL}'
+      - '&8* &7Item: &2{ITEM}'
+      - '&8* &7Chance: &2{CHANCE}%'
+      - '&8* &7Amount: &2{AMOUNT-START}-{AMOUNT-END}'
+      - '&8* &7Heights: &2{HEIGHTS-START}-{HEIGHTS-END}'
+      - '&8* &7Exp: &2{EXP}'
+      - '&8* &7Block: &2{BLOCK}'
+      - '&8* &7Biomes: &2{BIOMES}'
+      - '&8* &7Tools: &2{TOOLS}'
+      - '&8* &7Level points: &2{LEVELPOINTS}'
+      - ''
+      - '&8* &activecolorActive: &activecolor{ACTIVE}'
+cobblestone-active: '&8* &activecolorActive: &activecolor{ACTIVE}'
+empty: 'Empty'
+more: ' and more...'
+yes: 'yes'
+no: 'no'
+only-player: 'That command is not available for you.'
+no-permission: '&cYou dont have permission to use this command.'
+level-contents: '&7Your current level is &c{LEVEL} &7(&c{LEVELPOINTS} level points&7, &c{DROPMULTI} drop multipiler&7) and you will rankup on &c{RANKUP} level points&7!'
 sqlite: true
 mysql:
   port: 3306

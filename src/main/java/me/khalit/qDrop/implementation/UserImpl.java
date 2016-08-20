@@ -24,6 +24,7 @@ public class UserImpl implements User {
     private float dropMultipiler;
     private int levelPoints;
     private List<Drop> disabledDrops;
+    private boolean cobblestoneEnabled;
 
     public UserImpl(String name, UUID uuid) {
         this.uuid = uuid;
@@ -67,6 +68,11 @@ public class UserImpl implements User {
     }
 
     @Override
+    public boolean isCobblestoneEnabled() {
+        return cobblestoneEnabled;
+    }
+
+    @Override
     public List<Drop> getDisabledDrops() {
         return disabledDrops;
     }
@@ -101,6 +107,11 @@ public class UserImpl implements User {
     @Override
     public void removeDisabledDrop(Drop drop) {
         this.disabledDrops.remove(drop);
+    }
+
+    @Override
+    public void setCobblestoneEnabled(boolean cobblestoneEnabled) {
+        this.cobblestoneEnabled = cobblestoneEnabled;
     }
 
     @Override

@@ -1,9 +1,13 @@
 package me.khalit.qDrop;
 
+import me.khalit.qDrop.commands.DropCommand;
+import me.khalit.qDrop.commands.LevelCommand;
 import me.khalit.qDrop.configuration.Configuration;
 import me.khalit.qDrop.configuration.ConfigurationSectionReader;
 import me.khalit.qDrop.databases.MySQL;
 import me.khalit.qDrop.databases.SQLite;
+import me.khalit.qDrop.gui.GUICreator;
+import me.khalit.qDrop.gui.GUIType;
 import me.khalit.qDrop.implementation.interfaces.Database;
 import me.khalit.qDrop.implementation.interfaces.User;
 import me.khalit.qDrop.listeners.*;
@@ -83,6 +87,10 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new EntityExplodeListener(), this);
         pm.registerEvents(new LevelChangeListener(), this);
         pm.registerEvents(new LevelPointChangeListener(), this);
+        pm.registerEvents(new InventoryClickListener(), this);
+        LOG.info(PREFIX + "Registering commands...");
+        getCommand("drop").setExecutor(new DropCommand());
+        getCommand("level").setExecutor(new LevelCommand());
         LOG.info(PREFIX + "Loading drops...");
         ConfigurationSectionReader reader = new ConfigurationSectionReader("drops");
         int amount = reader.loadToAssembly();

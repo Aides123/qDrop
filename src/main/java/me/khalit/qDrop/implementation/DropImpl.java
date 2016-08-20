@@ -169,7 +169,9 @@ public class DropImpl implements Drop {
             return false;
         }
         for (Drop d : user.getDisabledDrops()) {
-            if (this.equals(d)) return true;
+            if (this.equals(d)) {
+                return true;
+            }
         }
         return false;
     }

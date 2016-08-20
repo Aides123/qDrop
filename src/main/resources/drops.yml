@@ -15,7 +15,7 @@ drops:
       end: 70
     block: STONE
     biomes: []
-    message: 'test'
+    message: '&7You have dropped a &3diamond &7(x{AMOUNT})'
     fortunes:
       - '1:2'
       - '2:3'

@@ -1,6 +1,5 @@
 package me.khalit.qDrop.utils.managers;
 
-import me.khalit.qDrop.DropAssembly;
 import me.khalit.qDrop.implementation.interfaces.Drop;
 import me.khalit.qDrop.implementation.interfaces.User;
 import me.khalit.qDrop.utils.Util;
@@ -24,6 +23,21 @@ import java.util.*;
  */
 public class DropManager {
 
+    private static final List<Drop> drops = new ArrayList<>();
+
+    public static List<Drop> getDrops() {
+        return drops;
+    }
+
+    public static void add(Drop drop) {
+        drops.add(drop);
+    }
+
+    public static void remove(Drop drop) {
+        if (drops.contains(drop))
+            drops.add(drop);
+    }
+
     public static void breakBlock(Player p, Block b) {
         User u = UserManager.getUser(p);
 
@@ -36,7 +50,7 @@ public class DropManager {
 
         List<ItemStack> toDrop = new ArrayList<>();
 
-        for (Drop d : DropAssembly.getDrops()) {
+        for (Drop d : drops) {
             if (d.isDisabled(u)) {
                 continue;
             }
@@ -79,6 +93,12 @@ public class DropManager {
         List<ItemStack> dropable = getDropableItems(b, tool);
         for (ItemStack i : dropable) {
             toDrop.add(i);
+        }
+
+        if (!u.isCobblestoneEnabled()) {
+            if (toDrop.contains(new ItemStack(Material.COBBLESTONE))) {
+                toDrop.remove(new ItemStack(Material.COBBLESTONE));
+            }
         }
 
         ItemStack[] toDropArray = new ItemStack[toDrop.size()];
@@ -262,5 +282,16 @@ public class DropManager {
     public static void breakItem(Player player, ItemStack item) {
         player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
         player.getInventory().removeItem(item);
+    }
+
+    public static boolean canDrop(Drop d, User u) {
+        return d.getLevelRequirement() <= u.getLevel();
+    }
+
+    public static String getColor(boolean active) {
+        if (active)
+            return "&a";
+
+        return "&c";
     }
 }

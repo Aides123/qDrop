@@ -1,11 +1,11 @@
 package me.khalit.qDrop.configuration;
 
-import me.khalit.qDrop.DropAssembly;
 import me.khalit.qDrop.Main;
 import me.khalit.qDrop.implementation.DropImpl;
 import me.khalit.qDrop.implementation.interfaces.Drop;
 import me.khalit.qDrop.utils.Parser;
 import me.khalit.qDrop.utils.keys.KeyPair;
+import me.khalit.qDrop.utils.managers.DropManager;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.ConfigurationSection;
@@ -90,7 +90,7 @@ public class ConfigurationSectionReader {
         for (String name : configurationSection.getKeys(false)) {
             ConfigurationSection section = configurationSection.getConfigurationSection(name);
 
-            DropAssembly.add(toObject(section));
+            DropManager.add(toObject(section));
             index++;
         }
         return index;

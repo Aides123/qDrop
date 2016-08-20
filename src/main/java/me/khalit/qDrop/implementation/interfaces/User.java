@@ -16,6 +16,7 @@ public interface User {
     int getLevel();
     float getDropMultipiler();
     int getLevelPoints();
+    boolean isCobblestoneEnabled();
 
     // non-saveable
     List<Drop> getDisabledDrops();
@@ -27,6 +28,7 @@ public interface User {
     void setDisabledDrops(List<Drop> drops);
     void addDisabledDrop(Drop drop);
     void removeDisabledDrop(Drop drop);
+    void setCobblestoneEnabled(boolean cobblestoneEnabled);
 
     void update();
     void insert();

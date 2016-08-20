@@ -1,3 +1,8 @@
 name: qDrop
 version: 1.0-SNAPSHOT
 main: me.khalit.qDrop.Main
+commands:
+  drop:
+    aliases: [kamien, surowce]
+  level:
+    aliases: [poziom, lvl, xp, exp]
