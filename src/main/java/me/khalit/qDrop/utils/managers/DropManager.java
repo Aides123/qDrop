@@ -88,6 +88,10 @@ public class DropManager {
             u.setLevelPoints(u.getLevelPoints() + d.getLevelPoints());
 
             ItemStack toAdd = d.getItem();
+            ItemMeta clear = toAdd.getItemMeta();
+            clear.setLore(new ArrayList<>());
+            clear.setDisplayName(null);
+            toAdd.setItemMeta(clear);
             toAdd.setAmount(amount);
             toDrop.add(toAdd);
 
